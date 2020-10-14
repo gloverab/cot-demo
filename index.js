@@ -14,8 +14,17 @@ const onHomeNavClick = (e) => {
 
 let carouselScrollVal = 0
 const onCarouselScroll = (e) => {
-  const ofFive = Math.floor(((e.target.scrollLeft + 130) * 5) / e.target.scrollWidth)
+  const total = 1318
+  const cardWidth = 240
+  console.log(e.target.scrollWidth)
+  console.log(e.target.scrollLeft)
+  let ofFive = Math.floor(((e.target.scrollLeft + 130) * 5) / e.target.scrollWidth)
   const fullLineWidth = $('#carousel-line-this-week').width()
+
+  if (e.target.scrollWidth - e.target.scrollLeft === window.innerWidth) {
+    // This is the last item
+    ofFive = 4
+  }
   if (isMobile) {
     if (ofFive != carouselScrollVal) {
       carouselScrollVal = ofFive
@@ -39,6 +48,10 @@ const setScrollWidth = () => {
   $('#carousel-line-active-this-week').css('width', `${calc}%`)
 }
 
+const onWindowResize = () => {
+  setScrollWidth()
+}
+
 const checkMobile = () => {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
     // true for mobile device
@@ -52,12 +65,9 @@ const checkMobile = () => {
     $('.carousel').each(function() {
       $(this).removeClass('snap')
     })
+    window.addEventListener('resize', onWindowResize);
     setScrollWidth()
   }
-}
-
-const onWindowResize = () => {
-  setScrollWidth()
 }
 
 const showOverlay = () => {
@@ -107,7 +117,5 @@ $(document).ready(() => {
   })
 
   $('#carousel-active-this-week').on('scroll', onCarouselScroll)
-
-  window.addEventListener('resize', onWindowResize);
   window.addEventListener("orientationchange", checkMobile);
 })
