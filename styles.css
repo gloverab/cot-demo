@@ -10,7 +10,6 @@ body {
   margin: 0;
   width: 100vw;
   font-family: Helvetica Neue;
-  overflow-x: hidden;
   box-sizing: border-box;
 }
 
@@ -174,6 +173,7 @@ a {
 
 .nav-drawer {
   position: absolute;
+  display: none;
   height: 100%;
   top: 0;
   right: -80%;
@@ -331,6 +331,8 @@ a {
 }
 
 .carousel-line {
+  position: relative;
+  width: auto;
   height: 4px;
   background-color: rgba(0, 0, 0, 0.06);
   border-radius: 20px;

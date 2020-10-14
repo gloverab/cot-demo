@@ -75,17 +75,24 @@ const hideOverlay = () => {
 }
 
 const handleToggleMenu = () => {
+  const navDrawer = $('#nav-drawer')
   if (navDisplayed) {
     hideOverlay()
     $('#menu-icon').removeClass('x')
+    navDrawer.animate({
+      'right': `-${navDrawer.width()}px`
+    }, 350, function() {
+      navDrawer.css('display', 'none')
+    })
   } else {
     showOverlay()
+    navDrawer.css('display', 'block')
+    navDrawer.animate({
+      'right': '0px'
+    }, 350)
     $('#menu-icon').addClass('x')
   }
-  const navDrawer = $('#nav-drawer')
-  navDrawer.animate({
-    'right': navDisplayed ? `-${navDrawer.width()}px` : '0px'
-  }, 350)
+
   navDisplayed = !navDisplayed
 }
 
