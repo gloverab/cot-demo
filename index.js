@@ -16,12 +16,14 @@ let carouselScrollVal = 0
 const onCarouselScroll = (e) => {
   const total = 1318
   const cardWidth = 240
-  console.log(e.target.scrollWidth)
-  console.log(e.target.scrollLeft)
   let ofFive = Math.floor(((e.target.scrollLeft + 130) * 5) / e.target.scrollWidth)
   const fullLineWidth = $('#carousel-line-this-week').width()
 
-  if (e.target.scrollWidth - e.target.scrollLeft === window.innerWidth) {
+  console.log(e.target.scrollWidth - e.target.scrollLeft)
+  console.log(window.innerWidth + 20)
+  if (((e.target.scrollWidth - e.target.scrollLeft < window.innerWidth + 20)) ||
+        e.target.scrollWidth - e.target.scrollLeft === window.innerWidth
+      ) {
     // This is the last item
     ofFive = 4
   }
