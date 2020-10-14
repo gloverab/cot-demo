@@ -84,7 +84,7 @@ const handleToggleMenu = () => {
   }
   const navDrawer = $('#nav-drawer')
   navDrawer.animate({
-    'right': navDisplayed ? `-${navDrawer.width()}` : '0%'
+    'right': navDisplayed ? `-${navDrawer.width()}px` : '0px'
   }, 350)
   navDisplayed = !navDisplayed
 }
