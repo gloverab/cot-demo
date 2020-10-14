@@ -1,4 +1,5 @@
 let isMobile
+let navDisplayed = false
 
 const onHomeNavClick = (e) => {
   e.preventDefault()
@@ -15,11 +16,13 @@ let carouselScrollVal = 0
 const onCarouselScroll = (e) => {
   const ofFive = Math.floor(((e.target.scrollLeft + 130) * 5) / e.target.scrollWidth)
   const fullLineWidth = $('#carousel-line-this-week').width()
-  if (isMobile && ofFive != carouselScrollVal) {
-    carouselScrollVal = ofFive
-    $('#carousel-line-active-this-week').animate({
-      'margin-left': (fullLineWidth / 5) * ofFive
-    }, 200)
+  if (isMobile) {
+    if (ofFive != carouselScrollVal) {
+      carouselScrollVal = ofFive
+      $('#carousel-line-active-this-week').animate({
+        'margin-left': (fullLineWidth / 5) * ofFive
+      }, 200)
+    }
   } else {
     const activeLineWidth = $('#carousel-line-active-this-week').width()
     const totalDistance = fullLineWidth - activeLineWidth
@@ -57,9 +60,40 @@ const onWindowResize = () => {
   setScrollWidth()
 }
 
+const showOverlay = () => {
+  const overlay = $('#overlay')
+  overlay.css('display', 'block')
+  overlay.animate({ 'opacity': '0.3' }, 350)
+  overlay.on('click', handleToggleMenu)
+}
+
+const hideOverlay = () => {
+  const overlay = $('#overlay')
+  overlay.animate({ 'opacity': '0' })
+  overlay.css('display', 'none')
+  overlay.off()
+}
+
+const handleToggleMenu = () => {
+  if (navDisplayed) {
+    hideOverlay()
+    $('#menu-icon').removeClass('x')
+  } else {
+    showOverlay()
+    $('#menu-icon').addClass('x')
+  }
+  const navDrawer = $('#nav-drawer')
+  navDrawer.animate({
+    'right': navDisplayed ? `-${navDrawer.width()}` : '0%'
+  }, 350)
+  navDisplayed = !navDisplayed
+}
+
 
 $(document).ready(() => {
   checkMobile()
+
+  $('#menu-icon').on('click', handleToggleMenu)
 
   $('.home-search-nav-link').each(function() {
     $(this).on('click', onHomeNavClick)
@@ -68,4 +102,5 @@ $(document).ready(() => {
   $('#carousel-active-this-week').on('scroll', onCarouselScroll)
 
   window.addEventListener('resize', onWindowResize);
+  window.addEventListener("orientationchange", checkMobile);
 })
