@@ -220,6 +220,10 @@ a {
   color: #888888;
 }
 
+.card .card-event-name {
+  font-weight: 400;
+}
+
 .card a {
   color: #09A9A9;
   font-size: 14px;
@@ -234,6 +238,12 @@ a {
    -ms-overflow-style: -ms-autohiding-scrollbar; 
 }
 
+.carousel.snap {
+  scroll-snap-type: mandatory;
+  scroll-snap-points-x: repeat(300px);
+  scroll-snap-type: x mandatory;
+}
+
 .carousel::-webkit-scrollbar {
   width: 0px;  /* Remove scrollbar space */
   background: transparent;  /* Optional: just make scrollbar invisible */
@@ -245,6 +255,10 @@ a {
   width: 240px;
   padding: 3px;
   margin-right: 16px;
+}
+
+.carousel.snap .card.card-event {
+  scroll-snap-align: center;
 }
 
 .card.card-event:first-of-type {
@@ -305,7 +319,6 @@ a {
 .card-full .card-event-name {
   font-size: 16px;
   line-height: 24px;
-  font-weight: 400;
 }
 
 .card-full .card-event-details {
@@ -315,4 +328,28 @@ a {
 
 .card-full a {
   margin-bottom: 24px;
+}
+
+@media only screen and (min-width: 800px) {
+  .hero-wrapper {
+    height: 420px;
+  }
+
+  .home-search-wrapper {
+    top: 338px;
+  }
+
+  .hero-text-wrapper h1 {
+    font-size: 42px;
+    line-height: 54px;
+  }
+
+  .hero-text-wrapper p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .carousel-line-active {
+    max-width: 100%;
+  }
 }
